@@ -1,3 +1,4 @@
+
 function main() {
 	getLocation();
 	var cuisine = document.getElementById("cuisine").value;
@@ -6,6 +7,24 @@ function main() {
 	console.log(cuisine);
 	console.log(cost);
 	console.log(distance);	
+  var yelp = require("yelp").createClient({
+    consumer_key: "8R3VoVwlpxrL5WY5fiAZEQ", 
+    consumer_secret: "KAG6oEENVoeZy-Tg13ve787pEKU",
+    token: "6mmfCjlYEgM9dnzesU71mDa_JvMdJqFc",
+    token_secret: "1oTxUfltNeGecmuM0bDdoA-6fWA"
+  });
+
+// See http://www.yelp.com/developers/documentation/v2/search_api
+  yelp.search({term: "food,italian",, location: "Princeton University", cll=geo.coords.latitude, geo.coords.longitude}, function(error, data) {
+    console.log(error);
+    console.log(data);
+  });
+
+// See http://www.yelp.com/developers/documentation/v2/business
+  yelp.business("yelp-san-francisco", function(error, data) {
+    console.log(error);
+    console.log(data);
+  });
 }
 
 // onSuccess Callback
@@ -33,6 +52,6 @@ function onError(error) {
 }
 
 function getLocation () {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    var geo = navigator.geolocation.getCurrentPosition(onSuccess, onError);
     document.getElementById("demo").innerHTML = "I was called";
 }
